@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CodeXml, Box, ALargeSmall, Blocks } from "lucide-react"
 import { SectionHeader } from "@/components/SectionHeader"
 import { Separator } from "@/components/ui/separator"
-import { CodeSnippet } from "@/components/CodeSnippet"
 import { SkillGrid } from "@/components/SkillGrid"
+import { Terminal } from "@/components/TerminalText"
 
 export function SkillsSection() {
   const skillGroups = [
@@ -17,6 +17,7 @@ export function SkillsSection() {
   return (
     <section className="py-20">
       <div className="grid gap-10 px-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+        
         <div className="max-w-md space-y-4">
           <SectionHeader title="Skills" />
 
@@ -25,7 +26,9 @@ export function SkillsSection() {
             projects.
           </p>
 
-          <CodeSnippet />
+          <div className="pt-4 opacity-80">
+            <Terminal />
+          </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">
@@ -40,7 +43,9 @@ export function SkillsSection() {
                 className="
                   relative overflow-hidden
                   border border-border/80
-                  backdrop-blur-md">
+                  backdrop-blur-md
+                "
+              >
                 <div
                   className="
                     absolute inset-0
@@ -48,7 +53,9 @@ export function SkillsSection() {
                     from-black/[0.01]
                     via-transparent
                     to-transparent
-                    dark:from-white/[0.02]"/>
+                    dark:from-white/[0.02]
+                  "
+                />
 
                 <CardHeader className="relative">
                   <div className="flex items-center gap-4">
@@ -62,7 +69,7 @@ export function SkillsSection() {
 
                 <Separator className="relative" />
 
-                <CardContent className="relative py-2 px-3">
+                <CardContent className="relative px-3 py-2">
                   <SkillGrid items={items} />
                 </CardContent>
               </Card>

@@ -1,52 +1,64 @@
+"use client"
+
+import { useState } from "react"
 import Link from "next/link"
-import { Separator } from "@/components/ui/separator"
-import { ModeToggle } from "./modetoggle"
-import { Icons } from "@/components/icons"
+import { AlignLeft, X } from "lucide-react"
+
 import { Button } from "@/components/ui/button"
-import { Navbar } from "@/components/navbar"
+import { Separator } from "@/components/ui/separator"
+import { ModeToggle } from "@/components/modetoggle"
+import { Navbar } from "@/components/Navbar"
+import { MobileNav } from "@/components/MobileNav"
+import { Icon } from "@/components/icon"
 
 export function Header() {
+  const [showMobileMenu, setShowMobileMenu] = useState(false)
 
-    return (
-        <header className="bg-background sticky top-0 z-50 w-full">
-            <div className="container-wrapper 3xl:fixed:px-0 px-6">
-                <div className="3xl:fixed:container flex h-(--header-height) items-center **:data-[slot=separator]:!h-4">
-                    <div className="flex lg:hidden">MobileNav</div>
-                    <Button
-                        asChild
-                        variant="ghost"
-                        size="icon"
-                        className="hidden size-8 lg:flex"
-                    >
-                        <Link href="/">
-                            <Icons.gitHub className="size-5" />
+  return (
+    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur">
+      <div className="container mx-auto flex h-16 max-w-6xl items-center px-6">
 
-                        </Link>
-                    </Button>
-                    <Navbar />
-                    <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
-                        <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
+        <div className="flex items-center gap-2">
+          <Button
+            size="icon"
+            variant="ghost"
+            className="lg:hidden"
+            onClick={() => setShowMobileMenu((open) => !open)}
+            aria-label="Toggle menu"
+          >
+            {showMobileMenu ? (
+              <X className="h-5 w-5" />
+            ) : (
+              <AlignLeft className="h-5 w-5" />
+            )}
+          </Button>
 
-                        </div>
-                        <Separator
-                            orientation="vertical"
-                            className="ml-2 hidden lg:block"
-                        />
-                        <Link href="/">
-                            Hello
-                        </Link>
-                        <Separator orientation="vertical" className="3xl:flex hidden" />
-                        <Button asChild size="sm" variant="ghost" className="h-8 shadow-none">
-                            <Link href="/" target="_blank" rel="noreferrer">
-                                <Icons.gitHub />
+          <Link href="/" className="flex items-center">
+            <Icon name="Logo" className="h-10 w-10" />
+          </Link>
+        </div>
 
-                            </Link>
-                        </Button>
-                        <Separator orientation="vertical" />
-                        <ModeToggle />
-                    </div>
-                </div>
-            </div>
-        </header>
-    )
+
+        <div className="ml-auto flex items-center gap-2">
+          <div className="hidden lg:flex">
+            <Navbar />
+          </div>
+          <div className="self-stretch">
+            <Separator orientation="vertical" className="mx-2 hidden h-6 lg:block" />
+          </div>
+          <Button asChild size="icon" variant="ghost">
+            <Link href="/" target="_blank">
+              <Icon name="GitHub" className="h-5 w-5" />
+            </Link>
+          </Button>
+
+          <ModeToggle />
+        </div>
+      </div>
+
+      {showMobileMenu && (
+        <MobileNav closeMenu={() => setShowMobileMenu(false)} />
+      )}
+    </header>
+  )
 }
