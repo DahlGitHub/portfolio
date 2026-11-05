@@ -10,6 +10,7 @@ import { ModeToggle } from "@/components/modetoggle"
 import { Navbar } from "@/components/Navbar"
 import { MobileNav } from "@/components/MobileNav"
 import { Icon } from "@/components/icon"
+import { VersionSelector } from "@/components/VersionSelector"
 
 export function Header() {
   const [showMobileMenu, setShowMobileMenu] = useState(false)
@@ -55,6 +56,7 @@ export function Header() {
           </Button>
 
           <ModeToggle />
+          <VersionSelector />
         </div>
       </div>
 
