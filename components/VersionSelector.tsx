@@ -8,8 +8,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { currentVersion, portfolioVersions } from "@/lib/versions"
@@ -21,25 +19,22 @@ export function VersionSelector() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="sm" aria-label={`Portfolio version: ${selected}`}>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="h-6 gap-1 rounded-full bg-muted px-2.5 text-xs font-semibold text-foreground hover:bg-accent data-[state=open]:bg-accent"
+          aria-label={`Portfolio version: ${selected}`}
+        >
           {selected}
-          <ChevronDown className="size-4" aria-hidden="true" />
+          <ChevronDown className="size-3 text-muted-foreground" aria-hidden="true" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuLabel>Portfolio version</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/" aria-current={pathname === "/" ? "page" : undefined}>
-            Latest ({currentVersion})
-            {pathname === "/" && <Check className="ml-auto size-4" aria-hidden="true" />}
-          </Link>
-        </DropdownMenuItem>
+      <DropdownMenuContent align="end" sideOffset={8} aria-label="Portfolio versions" className="min-w-28 rounded-xl border-border/60 p-1.5 shadow-lg">
         {portfolioVersions.map(({ id, label }) => (
-          <DropdownMenuItem key={id} asChild>
-            <Link href={`/${id}`} aria-current={pathname === `/${id}` ? "page" : undefined}>
+          <DropdownMenuItem key={id} asChild className="rounded-md px-2 py-1.5 text-xs font-semibold">
+            <Link href={`/${id}`} aria-current={selected === id ? "page" : undefined}>
               {label}
-              {pathname === `/${id}` && <Check className="ml-auto size-4" aria-hidden="true" />}
+              {selected === id && <Check className="ml-auto size-3.5" aria-hidden="true" />}
             </Link>
           </DropdownMenuItem>
         ))}
