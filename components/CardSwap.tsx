@@ -80,7 +80,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
   easing = 'elastic',
   children
 }) => {
-  const config =
+  const config = useMemo(() =>
     easing === 'elastic'
       ? {
           ease: 'elastic.out(0.6,0.9)',
@@ -97,10 +97,10 @@ const CardSwap: React.FC<CardSwapProps> = ({
           durReturn: 0.8,
           promoteOverlap: 0.45,
           returnDelay: 0.2
-        };
+        }, [easing]);
 
   const childArr = useMemo(() => Children.toArray(children) as ReactElement<CardProps>[], [children]);
-  const refs = useMemo<CardRef[]>(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr.length]);
+  const refs = useMemo<CardRef[]>(() => childArr.map(() => React.createRef<HTMLDivElement>()), [childArr]);
 
   const order = useRef<number[]>(Array.from({ length: childArr.length }, (_, i) => i));
 
@@ -109,6 +109,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    order.current = refs.map((_, index) => index);
     const total = refs.length;
     refs.forEach((r, i) => placeNow(r.current!, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
 
@@ -170,6 +171,7 @@ const CardSwap: React.FC<CardSwapProps> = ({
       });
     };
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     swap();
     intervalRef.current = window.setInterval(swap, delay);
 
@@ -189,10 +191,14 @@ const CardSwap: React.FC<CardSwapProps> = ({
         node.removeEventListener('mouseenter', pause);
         node.removeEventListener('mouseleave', resume);
         clearInterval(intervalRef.current);
+        tlRef.current?.kill();
       };
     }
-    return () => clearInterval(intervalRef.current);
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
+    return () => {
+      clearInterval(intervalRef.current);
+      tlRef.current?.kill();
+    };
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, config, refs]);
 
   const rendered = childArr.map((child, i) =>
     isValidElement<CardProps>(child)

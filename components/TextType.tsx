@@ -1,7 +1,16 @@
 'use client';
 
-import { ElementType, useEffect, useRef, useState, createElement, useMemo, useCallback } from 'react';
+import { ElementType, useEffect, useRef, useState, useMemo, useCallback, useSyncExternalStore } from 'react';
 import { gsap } from 'gsap';
+
+const motionQuery = '(prefers-reduced-motion: reduce)';
+const subscribeMotion = (listener: () => void) => {
+  const query = window.matchMedia(motionQuery);
+  query.addEventListener('change', listener);
+  return () => query.removeEventListener('change', listener);
+};
+const getReducedMotion = () => window.matchMedia(motionQuery).matches;
+const getServerMotion = () => false;
 
 interface TextTypeProps {
   className?: string;
@@ -46,6 +55,7 @@ const TextType = ({
   ...props
 }: TextTypeProps & React.HTMLAttributes<HTMLElement>) => {
   const [displayedText, setDisplayedText] = useState('');
+  const reducedMotion = useSyncExternalStore(subscribeMotion, getReducedMotion, getServerMotion);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -85,20 +95,21 @@ const TextType = ({
   }, [startOnVisible]);
 
   useEffect(() => {
-    if (showCursor && cursorRef.current) {
+    if (!reducedMotion && showCursor && cursorRef.current) {
       gsap.set(cursorRef.current, { opacity: 1 });
-      gsap.to(cursorRef.current, {
+      const animation = gsap.to(cursorRef.current, {
         opacity: 0,
         duration: cursorBlinkDuration,
         repeat: -1,
         yoyo: true,
         ease: 'power2.inOut'
       });
+      return () => { animation.kill(); };
     }
-  }, [showCursor, cursorBlinkDuration]);
+  }, [showCursor, cursorBlinkDuration, reducedMotion]);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || reducedMotion) return;
 
     let timeout: ReturnType<typeof setTimeout>;
 
@@ -162,32 +173,30 @@ const TextType = ({
     loop,
     initialDelay,
     isVisible,
+    reducedMotion,
     reverseMode,
     variableSpeed,
+    getRandomSpeed,
     onSentenceComplete
   ]);
 
   const shouldHideCursor =
     hideCursorWhileTyping && (currentCharIndex < textArray[currentTextIndex].length || isDeleting);
 
-  return createElement(
-    Component,
-    {
-      ref: containerRef,
-      className: `inline-block whitespace-pre-wrap tracking-tight ${className}`,
-      ...props
-    },
+  return (
+    <Component ref={containerRef} className={`inline-block whitespace-pre-wrap tracking-tight ${className}`} {...props}>
     <span className="inline" style={{ color: getCurrentTextColor() || 'inherit' }}>
-      {displayedText}
-    </span>,
-    showCursor && (
+      {reducedMotion ? textArray[currentTextIndex] : displayedText}
+    </span>
+    {showCursor && (
       <span
         ref={cursorRef}
         className={`ml-1 inline-block opacity-100 ${shouldHideCursor ? 'hidden' : ''} ${cursorClassName}`}
       >
         {cursorCharacter}
       </span>
-    )
+    )}
+    </Component>
   );
 };
 

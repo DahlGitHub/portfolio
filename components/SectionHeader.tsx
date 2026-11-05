@@ -10,9 +10,9 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
     <>
       <div className="mb-6 flex items-center gap-3">
         <span className="h-px w-10 bg-border" />
-        <span className="text-xl font-medium uppercase tracking-[0.35em] text-muted-foreground">
+        <h2 className="text-xl font-medium uppercase tracking-[0.35em] text-muted-foreground">
           {title}
-        </span>
+        </h2>
       </div>
 
     </>
