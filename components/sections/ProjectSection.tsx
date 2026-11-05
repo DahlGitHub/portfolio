@@ -7,7 +7,7 @@ import { Icon } from "@/components/icon"
 
 export function ProjectSection() {
   return (
-    <section className="container mx-auto max-w-6xl py-12 px-6">
+    <section id="projects" className="container mx-auto max-w-6xl scroll-mt-20 py-12 px-6">
       <SectionHeader title="Featured Projects" />
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -27,7 +27,7 @@ export function ProjectSection() {
 
             <div className="mt-10 flex justify-center">
         <Button asChild variant="outline">
-          <Link href="/projects">
+          <Link href="https://github.com/DahlGitHub?tab=repositories" target="_blank" rel="noopener noreferrer">
             <Icon name="GitHub" className="h-4 w-4" />
             View All Projects →
           </Link>

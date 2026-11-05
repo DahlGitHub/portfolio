@@ -7,7 +7,7 @@ export type Project = {
     type: string
     image: string
     techStack: ProjectTech[]
-    githubUrl: string
+    githubUrl?: string
     liveUrl?: string
 }
 
@@ -26,8 +26,6 @@ export const projectsData: Project[] = [
             { icon: "Firebase", label: "Firebase" },
 
         ],
-        githubUrl: "https://github.com/yourusername/your-repo",
-        liveUrl: "https://your-live-url.com",
     },
     {
         id: "tracker-website",
@@ -42,7 +40,6 @@ export const projectsData: Project[] = [
             { icon: "Typescript", label: "TypeScript" },
             { icon: "Firebase", label: "Firebase" },
         ],
-        githubUrl: "https://github.com/yourusername/api-dashboard",
     },
     {
         id: "discord-bot",
@@ -56,6 +53,5 @@ export const projectsData: Project[] = [
             { icon: "Supabase", label: "Supabase" },
             { icon: "RaspberryPI", label: "Raspberry Pi" },
         ],
-        githubUrl: "https://github.com/yourusername/discord-bot",
     },
 ]

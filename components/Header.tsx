@@ -25,6 +25,8 @@ export function Header() {
             className="lg:hidden"
             onClick={() => setShowMobileMenu((open) => !open)}
             aria-label="Toggle menu"
+            aria-expanded={showMobileMenu}
+            aria-controls="mobile-navigation"
           >
             {showMobileMenu ? (
               <X className="h-5 w-5" />
@@ -33,7 +35,7 @@ export function Header() {
             )}
           </Button>
 
-          <Link href="/" className="flex items-center">
+          <Link href="/" aria-label="Home" className="flex items-center">
             <Icon name="Logo" className="h-10 w-10" />
           </Link>
         </div>
@@ -47,7 +49,7 @@ export function Header() {
             <Separator orientation="vertical" className="mx-2 hidden h-6 lg:block" />
           </div>
           <Button asChild size="icon" variant="ghost">
-            <Link href="/" target="_blank">
+            <Link href="https://github.com/DahlGitHub" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
               <Icon name="GitHub" className="h-5 w-5" />
             </Link>
           </Button>

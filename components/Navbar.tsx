@@ -4,9 +4,9 @@ import Link from "next/link"
 import { Button } from "./ui/button"
 
 const navItems = [
-  { title: "Skills", href: "/skills" },
-  { title: "Projects", href: "/projects" },
-  { title: "Contact", href: "/contact" },
+  { title: "Skills", href: "#skills" },
+  { title: "Projects", href: "#projects" },
+  { title: "Contact", href: "#contact" },
 ]
 
 export function Navbar() {
@@ -16,14 +16,11 @@ export function Navbar() {
 
         <div className="flex items-center gap-2">
           {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium transition-colors hover:text-foreground">
-              <Button variant="ghost" size="sm">
+            <Button key={item.href} asChild variant="ghost" size="sm">
+              <Link href={item.href}>
                 {item.title}
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           ))}
         </div>
 

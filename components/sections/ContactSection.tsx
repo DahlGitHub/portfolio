@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/icon";
 import { SectionHeader } from "../SectionHeader";
 
 export function ContactSection() {
     return (
-        <section className="relative overflow-hidden py-24">
+        <section id="contact" className="relative scroll-mt-20 overflow-hidden py-24">
             <Icon name="Logo" className="absolute -right-80 top-1/2 h-[1080px] w-[1080px] -translate-y-2/5 text-foreground/[0.04]" />
 
 
@@ -27,9 +27,9 @@ export function ContactSection() {
                         {/* right */}
                         <div className="space-y-8">
                             <p className="max-w-xl text-base leading-8 text-muted-foreground sm:text-lg">
-                                I&apos;m currently available for freelance projects,
-                                collaborations, and new opportunities. Have an idea, role, or
-                                project in mind? Let&apos;s talk.
+                                I&apos;m looking for work as a software developer.
+                                Have a role or opportunity in mind? Connect with me on
+                                LinkedIn and let&apos;s talk.
                             </p>
 
                             <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
@@ -38,8 +38,8 @@ export function ContactSection() {
                                     size="lg"
                                     className="group h-12 rounded-full px-6 uppercase tracking-widest"
                                 >
-                                    <Link href="mailto:your@email.com">
-                                        Get in touch
+                                    <Link href="https://www.linkedin.com/in/dahladrian/" target="_blank" rel="noopener noreferrer">
+                                        Contact on LinkedIn
                                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                                     </Link>
                                 </Button>

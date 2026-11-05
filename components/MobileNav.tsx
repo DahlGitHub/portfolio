@@ -13,8 +13,8 @@ type MobileNavProps = {
 
 export function MobileNav({ closeMenu }: MobileNavProps) {
     return (
-        <div className="fixed inset-x-0 top-16 z-50 p-4 md:hidden">
-            <nav className="grid gap-1 rounded-xl border bg-popover p-2 text-popover-foreground shadow-lg">
+        <div className="fixed inset-x-0 top-16 z-50 p-4 lg:hidden">
+            <nav id="mobile-navigation" aria-label="Main navigation" onKeyDown={(event) => { if (event.key === "Escape") closeMenu?.() }} className="grid gap-1 rounded-xl border bg-popover p-2 text-popover-foreground shadow-lg">
                 {links.map((link) => (
                     <Link
                         key={link.href}

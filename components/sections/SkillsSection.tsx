@@ -15,7 +15,7 @@ export function SkillsSection() {
   ]
 
   return (
-    <section className="py-20">
+    <section id="skills" className="scroll-mt-20 py-20">
       <div className="grid gap-10 px-4 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
         
         <div className="max-w-md space-y-4">
