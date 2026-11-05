@@ -18,6 +18,8 @@ export const projectsData: Project[] = [
         description: "Showcasing events and activities with a built-in dashboard for new students.",
         type: "Fullstack",
         image: "/fadderuka.png",
+        githubUrl: "https://github.com/DahlGitHub/fadderukabo-web",
+        liveUrl: "https://fadderukabo.vercel.app/",
         techStack: [
             { icon: "NextjsIconDark", label: "Next.js" },
             { icon: "Typescript", label: "TypeScript" },
@@ -33,6 +35,7 @@ export const projectsData: Project[] = [
         description: "Track your training and calories with Norwegian products.",
         type: "Fullstack",
         image: "/trackerapp.png",
+        githubUrl: "https://github.com/DahlGitHub/tracker",
         techStack: [
             { icon: "NextjsIconDark", label: "Next.js" },
             { icon: "Tailwindcss", label: "Tailwind CSS" },
@@ -47,6 +50,7 @@ export const projectsData: Project[] = [
         description: "A bot for managing and interacting with Discord servers.",
         type: "Backend",
         image: "/discordpython.png",
+        githubUrl: "https://github.com/DahlGitHub/DiscordPython",
         techStack: [
             { icon: "Python", label: "Python" },
             { icon: "Discord", label: "Discord" },
